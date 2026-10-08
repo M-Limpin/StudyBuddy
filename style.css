@@ -1,0 +1,543 @@
+/* =====================================================
+   STUDYBUDDY DESIGN SYSTEM
+   -----------------------------------------------------
+   1. Design tokens  (colors, type scale, spacing, etc.)
+   2. Base / reset
+   3. Layout         (mobile-first, responsive)
+   4. Components     (header, card, task badge, deadline,
+                      progress, button, input, nav, table,
+                      profile stats)
+   5. Breakpoints    (tablet >= 768px, desktop >= 1100px)
+===================================================== */
+
+
+/* =====================================================
+   1. DESIGN TOKENS
+===================================================== */
+:root {
+
+    /* ---- COLOR PALETTE (8 roles) ---- */
+    --color-primary:        #2563eb;  /* main brand, links, active nav, table head */
+    --color-secondary:      #4f46e5;  /* gradient partner of primary */
+    --color-success:        #22c55e;  /* "Done" status */
+    --color-warning:        #f59e0b;  /* "Pending" status */
+    --color-danger:         #ef4444;  /* "Late" status, logout */
+    --color-heading:        #1e3a8a;  /* card titles */
+    --color-text:           #1f2937;  /* body text */
+    --color-text-muted:     #666666;  /* secondary text, inactive nav */
+
+    /* Neutrals / surfaces */
+    --color-surface:        #ffffff;  /* cards, phone frame */
+    --color-surface-soft:   #eef4ff;  /* AI card, stat boxes */
+    --color-border:         #dddddd;
+    --gradient-brand:       linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    --gradient-page:        linear-gradient(135deg, #dbeafe, #bfdbfe, #e0e7ff);
+
+    /* ---- TYPE SCALE (base 16px, ratio ~1.2) ---- */
+    --font-family:  'Poppins', system-ui, sans-serif;
+    --fs-xs:   0.75rem;    /* 12px  badges, small labels   */
+    --fs-sm:   0.875rem;   /* 14px  captions, nav, header subtitle */
+    --fs-base: 1rem;       /* 16px  body, buttons          */
+    --fs-md:   1.125rem;   /* 18px  card titles (h3)       */
+    --fs-lg:   1.375rem;   /* 22px  page title (h2)        */
+    --fs-xl:   1.75rem;    /* 28px  profile name, stat numbers */
+
+    --fw-regular:  400;
+    --fw-medium:   500;
+    --fw-semibold: 600;
+    --fw-bold:     700;
+
+    --lh-tight:   1.3;     /* headings */
+    --lh-normal:  1.6;     /* body     */
+
+    /* ---- SPACING SCALE (4px base unit) ---- */
+    --space-1:  0.25rem;   /*  4px */
+    --space-2:  0.5rem;    /*  8px */
+    --space-3:  0.75rem;   /* 12px */
+    --space-4:  1rem;      /* 16px */
+    --space-5:  1.5rem;    /* 24px */
+    --space-6:  2rem;      /* 32px */
+    --space-7:  3rem;      /* 48px */
+
+    /* ---- SPACING RULES ----
+       - Gap between cards ............ --space-4 (mobile) / --space-5 (tablet+)
+       - Card inner padding ........... --space-4 (mobile) / --space-5 (tablet+)
+       - Gap between items in a card .. --space-4
+       - Icon-to-text gap ............. --space-2
+       - Header padding ............... --space-5
+    */
+
+    /* ---- SHAPE & DEPTH ---- */
+    --radius-sm:   10px;   /* inputs */
+    --radius-md:   12px;   /* buttons, stat boxes */
+    --radius-lg:   18px;   /* cards */
+    --radius-pill: 999px;  /* badges, progress */
+    --radius-frame: 30px;  /* app frame on desktop */
+    --shadow-card:  0 8px 18px rgba(0, 0, 0, .08);
+    --shadow-frame: 0 15px 40px rgba(0, 0, 0, .18);
+
+    --transition: .25s ease;
+}
+
+
+/* =====================================================
+   2. BASE / RESET
+===================================================== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html { font-size: 100%; }
+
+body {
+    font-family: var(--font-family);
+    font-size: var(--fs-base);
+    line-height: var(--lh-normal);
+    color: var(--color-text);
+    background: var(--gradient-page);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+img { max-width: 100%; display: block; }
+
+h2, h3, h4 { line-height: var(--lh-tight); }
+small { font-size: var(--fs-sm); }
+
+:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+
+/* =====================================================
+   3. LAYOUT  (mobile-first: 1 column, full screen)
+===================================================== */
+.phone {
+    width: 100%;
+    min-height: 100vh;
+    background: var(--color-surface);
+    overflow: clip;                 /* clip (not hidden) so sticky nav still works */
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: min-content;
+    align-content: start;
+    gap: var(--space-4);
+    padding: 0 var(--space-3) var(--space-4);
+}
+
+/* header + nav always span the full width and bleed to the edges */
+.header,
+.bottom-nav {
+    grid-column: 1 / -1;
+    margin-inline: calc(-1 * var(--space-3));
+}
+
+.card--full { grid-column: 1 / -1; }   /* utility: card takes the whole row */
+
+
+/* =====================================================
+   4. COMPONENTS
+===================================================== */
+
+/* ---------- HEADER ---------- */
+.header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    background: var(--gradient-brand);
+    color: #fff;
+}
+
+.logo {
+    flex-shrink: 0;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--color-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--fs-lg);
+}
+
+.header h2 {
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-semibold);
+    margin-bottom: var(--space-1);
+}
+
+.header p {
+    font-size: var(--fs-sm);
+    opacity: .9;
+}
+
+/* ---------- CARD ---------- */
+.card {
+    padding: var(--space-4);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    transition: transform var(--transition);
+}
+
+.card h3 {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+    font-size: var(--fs-md);
+    font-weight: var(--fw-semibold);
+    color: var(--color-heading);
+}
+
+/* Card variant: AI suggestion */
+.ai { background: var(--color-surface-soft); }
+
+/* ---------- TASK ROW + STATUS BADGE ---------- */
+.task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+}
+
+.task:last-child { margin-bottom: 0; }
+
+.task h4 {
+    font-size: var(--fs-base);
+    font-weight: var(--fw-medium);
+}
+
+.task small { color: var(--color-text-muted); }
+
+.task span {                      /* the status badge */
+    flex-shrink: 0;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-semibold);
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+}
+
+.pending { background: var(--color-warning); }
+.done    { background: var(--color-success); }
+.late    { background: var(--color-danger); }
+
+/* ---------- DEADLINE / SCHEDULE ITEM ---------- */
+.deadline {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+}
+
+.deadline:last-child { margin-bottom: 0; }
+
+.deadline i {
+    flex-shrink: 0;
+    width: 1.5rem;
+    text-align: center;
+    font-size: var(--fs-lg);
+    color: var(--color-primary);
+}
+
+.deadline b { font-weight: var(--fw-semibold); }
+.deadline p { font-size: var(--fs-sm); color: var(--color-text-muted); }
+
+/* ---------- PROGRESS BAR ---------- */
+.progress {
+    width: 100%;
+    height: 0.75rem;
+    margin-top: var(--space-3);
+    background: var(--color-border);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+}
+
+.bar {
+    width: 75%;
+    height: 100%;
+    background: var(--gradient-brand);
+}
+
+/* ---------- BUTTON ---------- */
+button {
+    width: 100%;
+    margin-top: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border: none;
+    border-radius: var(--radius-md);
+    background: var(--gradient-brand);
+    color: #fff;
+    font-family: inherit;
+    font-size: var(--fs-base);
+    font-weight: var(--fw-medium);
+    cursor: pointer;
+    transition: transform var(--transition), background var(--transition);
+}
+
+button i { margin-right: var(--space-2); }
+button:hover { transform: scale(1.02); }
+
+/* Button variant: danger (logout) */
+.logout       { background: var(--color-danger); }
+.logout:hover { background: #dc2626; }
+
+/* ---------- INPUT ---------- */
+.input {
+    width: 100%;
+    padding: var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    font-size: var(--fs-sm);
+}
+
+.input:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .2);
+}
+
+/* ---------- BOTTOM NAVIGATION ---------- */
+.bottom-nav {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-around;
+    padding: var(--space-3);
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+}
+
+.bottom-nav a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+    text-decoration: none;
+    font-size: var(--fs-sm);
+    color: var(--color-text-muted);
+    transition: color var(--transition), transform var(--transition);
+}
+
+.bottom-nav a i { font-size: var(--fs-lg); }
+
+.bottom-nav a:hover { color: var(--color-primary); transform: translateY(-3px); }
+.bottom-nav .active { color: var(--color-primary); font-weight: var(--fw-bold); }
+
+/* ---------- TABLE ---------- */
+table {
+    width: 100%;
+    margin-top: var(--space-2);
+    border-collapse: collapse;
+    font-size: var(--fs-sm);
+}
+
+table th {
+    padding: var(--space-3);
+    background: var(--color-primary);
+    color: #fff;
+    font-weight: var(--fw-semibold);
+}
+
+table td {
+    padding: var(--space-3);
+    border: 1px solid var(--color-border);
+    text-align: center;
+}
+
+/* ---------- PROFILE + STATS ---------- */
+.profile { text-align: center; }
+
+.profile img {
+    width: 7rem;
+    height: 7rem;
+    margin: 0 auto var(--space-4);
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile h2 {
+    font-size: var(--fs-xl);
+    color: var(--color-primary);
+}
+
+.profile p {
+    margin-top: var(--space-1);
+    color: var(--color-text-muted);
+}
+
+.stat-box {
+    display: flex;
+    gap: var(--space-3);
+}
+
+.stat {
+    flex: 1;
+    padding: var(--space-4);
+    background: var(--color-surface-soft);
+    border-radius: var(--radius-md);
+    text-align: center;
+}
+
+.stat h3 {
+    justify-content: center;
+    margin-bottom: var(--space-1);
+    font-size: var(--fs-xl);
+    color: var(--color-primary);
+}
+
+.stat p { font-size: var(--fs-sm); color: var(--color-text-muted); }
+
+
+/* =====================================================
+   5. BREAKPOINTS
+   Phone   : < 768px   -> 1 column, full screen
+   Tablet  : >= 768px  -> centered frame, 2 columns
+   Desktop : >= 1100px -> wide frame, 2 columns, roomier
+===================================================== */
+
+/* ---------- SMALL PHONES (< 480px) ---------- */
+@media (max-width: 479px) {
+
+    .header h2 { font-size: var(--fs-md); }
+
+    .task {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .task span { align-self: flex-end; }
+
+    .stat-box { flex-direction: column; }
+
+    table th,
+    table td { padding: var(--space-2); font-size: var(--fs-xs); }
+}
+
+/* ---------- TABLET (768px and up) ---------- */
+@media (min-width: 768px) {
+
+    body {
+        align-items: center;
+        padding: var(--space-5);
+    }
+
+    .phone {
+        max-width: 760px;
+        min-height: auto;
+        border-radius: var(--radius-frame);
+        box-shadow: var(--shadow-frame);
+
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-5);
+        padding: 0 var(--space-5) var(--space-5);
+    }
+
+    .header,
+    .bottom-nav { margin-inline: calc(-1 * var(--space-5)); }
+
+    .card { padding: var(--space-5); }
+    .card:hover { transform: translateY(-4px); }
+
+    .profile { grid-column: 1 / -1; }
+}
+
+/* ---------- DESKTOP (1100px and up) ---------- */
+@media (min-width: 1100px) {
+
+    .phone {
+        max-width: 1040px;
+        gap: var(--space-6);
+        padding: 0 var(--space-6) var(--space-6);
+    }
+
+    .header,
+    .bottom-nav { margin-inline: calc(-1 * var(--space-6)); }
+
+    .header { padding: var(--space-5) var(--space-6); }
+
+    .bottom-nav { gap: var(--space-6); justify-content: center; }
+    .bottom-nav a { flex-direction: row; gap: var(--space-2); padding: var(--space-2) var(--space-5); }
+
+    .header h2 { font-size: var(--fs-xl); }
+}
+
+/* ---------- ACCESSIBILITY: reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+
+/* =====================================================
+   6. NEW COMPONENTS (forms, filters, help, toast, etc.)
+===================================================== */
+[hidden] { display: none !important; }
+
+.form { display: grid; gap: var(--space-3); }
+.form label { display: grid; gap: var(--space-1); font-size: var(--fs-sm); font-weight: var(--fw-medium); }
+.form .row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+.form button { margin-top: var(--space-2); }
+.form small { color: var(--color-text-muted); }
+.form .check { display: flex; align-items: center; gap: var(--space-2); }
+.form .check input { width: 1.1rem; height: 1.1rem; }
+
+.chips { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: var(--space-4) 0; }
+button.chip {
+    width: auto; margin: 0; padding: var(--space-2) var(--space-4);
+    background: var(--color-surface-soft); color: var(--color-primary);
+    border: 1px solid var(--color-primary); border-radius: var(--radius-pill);
+    font-size: var(--fs-sm);
+}
+button.chip.on { background: var(--gradient-brand); color: #fff; }
+
+.task-actions { display: flex; align-items: center; gap: var(--space-2); flex-shrink: 0; }
+button.icon-btn {
+    width: auto; margin: 0; padding: var(--space-2);
+    background: none; color: var(--color-danger); font-size: var(--fs-base);
+}
+button.btn-ghost { background: var(--color-surface-soft); color: var(--color-primary); }
+
+.empty { color: var(--color-text-muted); font-size: var(--fs-sm); }
+
+.help summary { cursor: pointer; font-weight: var(--fw-semibold); color: var(--color-heading); font-size: var(--fs-md); }
+.help ol { margin: var(--space-4) 0 0 var(--space-5); display: grid; gap: var(--space-2); font-size: var(--fs-sm); }
+
+.avatar {
+    width: 7rem; height: 7rem; margin: 0 auto var(--space-4); border-radius: 50%;
+    background: var(--gradient-brand); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: var(--fs-xl); font-weight: var(--fw-semibold);
+}
+
+.deadline .del { margin-left: auto; }
+.deadline > div { flex: 1; }
+table .icon-btn { padding: 0; }
+
+.toast {
+    position: fixed; left: 50%; bottom: 5.5rem; transform: translateX(-50%);
+    max-width: 90%; padding: var(--space-3) var(--space-4);
+    background: var(--color-text); color: #fff; border-radius: var(--radius-md);
+    font-size: var(--fs-sm); z-index: 50; box-shadow: var(--shadow-card);
+}
+
+@media (max-width: 479px) {
+    .form .row { grid-template-columns: 1fr; }
+    .task-actions { align-self: flex-end; }
+}

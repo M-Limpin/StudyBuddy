@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body data-page="index">
+<div class="phone">
+    <header class="header">
+        <div class="logo"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div>
+            <h2>StudyBuddy</h2>
+            <p id="welcome">Welcome 👋</p>
+        </div>
+    </header>
+
+    <section class="card">
+        <h3><i class="fa-solid fa-list-check"></i> Today's Tasks</h3>
+        <div id="todayTasks"></div>
+    </section>
+
+    <section class="card">
+        <h3><i class="fa-solid fa-calendar-days"></i> Upcoming Deadlines</h3>
+        <div id="deadlines"></div>
+    </section>
+
+    <section class="card">
+        <h3><i class="fa-solid fa-chart-simple"></i> Study Progress</h3>
+        <p id="progressText">0% Completed</p>
+        <div class="progress"><div class="bar" id="bar" style="width:0"></div></div>
+    </section>
+
+    <section class="card ai">
+        <h3><i class="fa-solid fa-robot"></i> Study Suggestion</h3>
+        <p id="tip"></p>
+        <button onclick="changeTip()">Get Another Suggestion</button>
+    </section>
+
+    <details class="card help card--full" id="help">
+        <summary><i class="fa-solid fa-circle-question"></i> How to use StudyBuddy</summary>
+        <ol>
+            <li><b>Profile:</b> Open the Profile tab, tap <i>Edit Profile</i>, and enter your name, course, student ID and photo.</li>
+            <li><b>Tasks:</b> In the Tasks tab, fill in the title, subject and due date, then tap <i>Add Task</i>.</li>
+            <li><b>Status:</b> Tap a task's colored badge to mark it Done (or back to Pending). A task becomes <i>Late</i> automatically when its due date has passed and it isn't done.</li>
+            <li><b>Filter:</b> Use the Pending / Late / Done / All buttons. The list shows <i>Pending</i> by default. Use the search box to find a task.</li>
+            <li><b>Schedule:</b> In the Schedule tab, add your class timetable (day + time + subject). Today's classes show automatically. Add one-time study sessions too.</li>
+            <li><b>Delete:</b> Tap the trash icon to remove a task, class or session.</li>
+            <li><b>Reminders &amp; AI:</b> In Profile &gt; Settings, turn on notifications, or add a Gemini API key to get AI suggestions based on your pending tasks.</li>
+            <li><b>Saving:</b> Everything is saved automatically in this browser — no login needed. Use <i>Export Backup</i> in Profile to keep a copy. Clearing browser data erases it.</li>
+        </ol>
+    </details>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="active"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="tasks.html"><i class="fa-solid fa-list-check"></i><span>Tasks</span></a>
+        <a href="schedule.html"><i class="fa-solid fa-calendar-days"></i><span>Schedule</span></a>
+        <a href="profile.html"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+    </nav>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

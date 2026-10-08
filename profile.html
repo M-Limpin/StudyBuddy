@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy - Profile</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body data-page="profile">
+<div class="phone">
+    <header class="header">
+        <div class="logo"><i class="fa-solid fa-user"></i></div>
+        <div>
+            <h2>My Profile</h2>
+            <p>Student Information</p>
+        </div>
+    </header>
+
+    <section class="card profile card--full" id="pView"></section>
+
+    <section class="card">
+        <h3><i class="fa-solid fa-chart-column"></i> Study Statistics</h3>
+        <div class="stat-box" id="stats"></div>
+    </section>
+
+    <section class="card">
+        <h3><i class="fa-solid fa-gear"></i> Settings</h3>
+        <button data-toggle="pEdit"><i class="fa-solid fa-user-pen"></i> Edit Profile</button>
+        <button data-toggle="pNotif"><i class="fa-solid fa-bell"></i> Notification Settings</button>
+        <button data-toggle="pAI"><i class="fa-solid fa-robot"></i> Gemini AI Settings</button>
+    </section>
+
+    <section class="card card--full" id="pEdit" hidden>
+        <h3><i class="fa-solid fa-user-pen"></i> Edit Profile</h3>
+        <form class="form" id="profileForm">
+            <label>Full name <input class="input" id="fName" maxlength="60" required></label>
+            <label>Course <input class="input" id="fCourse" maxlength="60" placeholder="e.g. BS Computer Science"></label>
+            <label>Student ID <input class="input" id="fId" maxlength="30"></label>
+            <label>Photo <input class="input" id="fPhoto" type="file" accept="image/*"></label>
+            <button type="button" class="btn-ghost" id="removePhoto">Remove photo</button>
+            <button type="submit">Save Profile</button>
+        </form>
+    </section>
+
+    <section class="card card--full" id="pNotif" hidden>
+        <h3><i class="fa-solid fa-bell"></i> Notification Settings</h3>
+        <form class="form" id="notifForm">
+            <label class="check"><input type="checkbox" id="nOn"> Remind me about tasks that are due soon or late</label>
+            <label>Remind me when a task is due within
+                <select class="input" id="nDays">
+                    <option value="0">Today</option><option value="1">1 day</option>
+                    <option value="2">2 days</option><option value="3">3 days</option><option value="7">7 days</option>
+                </select>
+            </label>
+            <small>Reminders appear (once a day) when you open StudyBuddy. Your browser will ask for permission.</small>
+            <button type="submit">Save Notification Settings</button>
+        </form>
+    </section>
+
+    <section class="card card--full" id="pAI" hidden>
+        <h3><i class="fa-solid fa-robot"></i> Gemini AI Settings</h3>
+        <form class="form" id="aiForm">
+            <label class="check"><input type="checkbox" id="aOn"> Use Gemini for study suggestions</label>
+            <label>API key <input class="input" id="aKey" type="password" autocomplete="off" placeholder="Paste your Gemini API key"></label>
+            <label>Model <input class="input" id="aModel" placeholder="gemini-2.0-flash"></label>
+            <small>Get a free key at Google AI Studio. The key is stored only in this browser; don't use this on a shared computer. Without a key, StudyBuddy uses built-in tips.</small>
+            <button type="submit">Save Gemini Settings</button>
+        </form>
+    </section>
+
+    <section class="card card--full">
+        <h3><i class="fa-solid fa-database"></i> Your Data</h3>
+        <button id="export"><i class="fa-solid fa-download"></i> Export Backup</button>
+        <button id="import" class="btn-ghost"><i class="fa-solid fa-upload"></i> Import Backup</button>
+        <input type="file" id="importFile" accept="application/json,.json" hidden>
+        <button id="reset" class="logout"><i class="fa-solid fa-trash"></i> Delete All Data</button>
+    </section>
+
+    <nav class="bottom-nav">
+        <a href="index.html"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="tasks.html"><i class="fa-solid fa-list-check"></i><span>Tasks</span></a>
+        <a href="schedule.html"><i class="fa-solid fa-calendar-days"></i><span>Schedule</span></a>
+        <a href="profile.html" class="active"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+    </nav>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

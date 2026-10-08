@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy - Schedule</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body data-page="schedule">
+<div class="phone">
+    <header class="header">
+        <div class="logo"><i class="fa-solid fa-calendar-days"></i></div>
+        <div>
+            <h2>Study Schedule</h2>
+            <p>Plan your week wisely</p>
+        </div>
+    </header>
+
+    <section class="card">
+        <h3><i class="fa-solid fa-clock"></i> Today's Schedule</h3>
+        <div id="todayClasses"></div>
+    </section>
+
+    <section class="card">
+        <h3><i class="fa-solid fa-book-open"></i> Upcoming Study Sessions</h3>
+        <div id="sessionList"></div>
+    </section>
+
+    <section class="card">
+        <h3><i class="fa-solid fa-plus"></i> Add Class</h3>
+        <form class="form" id="classForm">
+            <label>Day
+                <select class="input" id="cDay">
+                    <option>Monday</option><option>Tuesday</option><option>Wednesday</option>
+                    <option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option>
+                </select>
+            </label>
+            <div class="row">
+                <label>Start <input class="input" type="time" id="cStart" required></label>
+                <label>End <input class="input" type="time" id="cEnd" required></label>
+            </div>
+            <label>Subject <input class="input" id="cSubject" required maxlength="50" placeholder="e.g. Mathematics"></label>
+            <button type="submit"><i class="fa-solid fa-plus"></i> Add Class</button>
+        </form>
+    </section>
+
+    <section class="card">
+        <h3><i class="fa-solid fa-plus"></i> Add Study Session</h3>
+        <form class="form" id="sessionForm">
+            <label>What will you study? <input class="input" id="sTitle" required maxlength="80" placeholder="e.g. Review for Programming Quiz"></label>
+            <div class="row">
+                <label>Date <input class="input" type="date" id="sDate" required></label>
+                <label>Time <input class="input" type="time" id="sTime" required></label>
+            </div>
+            <button type="submit"><i class="fa-solid fa-plus"></i> Add Session</button>
+        </form>
+    </section>
+
+    <section class="card card--full">
+        <h3><i class="fa-solid fa-calendar-week"></i> Weekly Schedule</h3>
+        <div id="weekly"></div>
+    </section>
+
+    <nav class="bottom-nav">
+        <a href="index.html"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="tasks.html"><i class="fa-solid fa-list-check"></i><span>Tasks</span></a>
+        <a href="schedule.html" class="active"><i class="fa-solid fa-calendar-days"></i><span>Schedule</span></a>
+        <a href="profile.html"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+    </nav>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

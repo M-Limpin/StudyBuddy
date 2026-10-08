@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy - Tasks</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body data-page="tasks">
+<div class="phone">
+    <header class="header">
+        <div class="logo"><i class="fa-solid fa-list-check"></i></div>
+        <div>
+            <h2>My Tasks</h2>
+            <p>Manage your assignments easily</p>
+        </div>
+    </header>
+
+    <section class="card card--full">
+        <h3><i class="fa-solid fa-plus"></i> Add New Task</h3>
+        <form class="form" id="taskForm">
+            <label>Task title
+                <input class="input" id="tTitle" required maxlength="80" placeholder="e.g. Flutter UI Project">
+            </label>
+            <div class="row">
+                <label>Subject
+                    <input class="input" id="tSubject" maxlength="50" placeholder="e.g. Computer Science">
+                </label>
+                <label>Due date
+                    <input class="input" id="tDue" type="date" required>
+                </label>
+            </div>
+            <button type="submit"><i class="fa-solid fa-plus"></i> Add Task</button>
+        </form>
+    </section>
+
+    <section class="card card--full">
+        <h3><i class="fa-solid fa-list"></i> Assignment List</h3>
+        <input type="text" class="input" id="search" placeholder="Search assignment..." aria-label="Search assignment">
+        <div class="chips" id="chips">
+            <button class="chip" data-f="pending">Pending</button>
+            <button class="chip" data-f="late">Late</button>
+            <button class="chip" data-f="done">Done</button>
+            <button class="chip" data-f="all">All</button>
+        </div>
+        <div id="taskList"></div>
+    </section>
+
+    <nav class="bottom-nav">
+        <a href="index.html"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="tasks.html" class="active"><i class="fa-solid fa-list-check"></i><span>Tasks</span></a>
+        <a href="schedule.html"><i class="fa-solid fa-calendar-days"></i><span>Schedule</span></a>
+        <a href="profile.html"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+    </nav>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
