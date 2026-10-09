@@ -3,7 +3,7 @@
 A mobile-friendly study planner where students track assignments, set up their class schedule, and get study suggestions, with everything saved in their own browser and no account needed.
 
 **Live site:** [https://yourusername.github.io/your-repo-name/](https://studybuddy-petah2.vercel.app?_vercel_share=lUcmKI1vRv2nbZGdhZfbycEh8evqnUTF)
-**Demo video:** (link)
+**Demo video:** (link
 
 <img width="1919" height="943" alt="image" src="https://github.com/user-attachments/assets/8c89a381-20dc-4b13-9622-ae4241382d95" />
 
